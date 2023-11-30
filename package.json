@@ -1,18 +1,24 @@
 {
   "dependencies": {
+    "@prisma/client": "^5.6.0",
     "discord.js": "^14.13.0",
     "dotenv": "^16.3.1",
+    "express": "^4.18.2",
     "tsc": "^2.0.4"
   },
   "scripts": {
+    "svt": "tsx watch src/server/index.ts",
     "dev": "tsx watch src/index.ts",
+    "deploy": "node dist/deploy-commands.js",
     "start": "node dist/index.js",
     "build": "tsup src/**/* --minify"
   },
   "devDependencies": {
+    "@types/express": "^4.17.21",
     "@typescript-eslint/eslint-plugin": "^6.7.2",
     "@typescript-eslint/parser": "^6.7.2",
     "eslint": "^8.49.0",
+    "prisma": "^5.6.0",
     "tsup": "^7.2.0",
     "tsx": "^3.12.10",
     "typescript": "^5.2.2"

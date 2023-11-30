@@ -4,7 +4,7 @@ import { SlashCommand } from '../types';
 export const command : SlashCommand = {
     command: new SlashCommandBuilder()
         .setName('ping')
-        .setDescription('show ping'),
+        .setDescription('show ping xzz'),
     execute: (interaction) => {
         interaction.reply({
             embeds: [

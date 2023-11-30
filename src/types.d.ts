@@ -1,7 +1,8 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, AutocompleteInteraction, Collection } from 'discord.js';
 
 export interface SlashCommand {
-    command: SlashCommandBuilder,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    command: SlashCommandBuilder|any,
     execute: (interaction: ChatInputCommandInteraction) => void,
     autocomplete?: (interaction: AutocompleteInteraction) => void,
     cooldown?: number

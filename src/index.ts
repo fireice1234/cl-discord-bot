@@ -2,6 +2,7 @@ import { Client, Collection } from 'discord.js';
 import { config } from 'dotenv';
 import { executeFile } from './functions';
 import { SlashCommand, Event } from './types';
+import { run } from './server';
 
 config();
 
@@ -38,3 +39,4 @@ const login = async (token: string | undefined) => {
 };
 
 login(process.env.TOKEN);
+run();
