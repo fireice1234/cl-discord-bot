@@ -3,7 +3,7 @@ import { config } from 'dotenv';
 import { executeFile } from './functions';
 import { SlashCommand, Event } from './types';
 import { run } from './server';
-
+import { deploy } from './deploy-commands';
 config();
 
 const client = new Client({
@@ -38,5 +38,8 @@ const login = async (token: string | undefined) => {
     client.login(token);
 };
 
-login(process.env.TOKEN);
-run();
+deploy().then(() => {
+    login(process.env.TOKEN);
+    run();
+});
+

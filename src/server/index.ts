@@ -47,6 +47,7 @@ app.use('/api/connect', async (req, res) => {
 
 export async function run() {
     app.listen(port, () => {
-        console.log('start express server...');
+        console.log(`start express server port = ${port}`);
+        console.log(`url http://localhost:${port}`);
     });
 }
