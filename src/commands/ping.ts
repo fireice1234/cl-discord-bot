@@ -5,7 +5,7 @@ export const command : SlashCommand = {
     command: new SlashCommandBuilder()
         .setName('ping')
         .setDescription('show ping xzz'),
-    execute: (interaction) => {
+    execute: async (interaction) => {
         interaction.reply({
             embeds: [
                 new EmbedBuilder()

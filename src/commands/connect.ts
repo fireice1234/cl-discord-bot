@@ -9,7 +9,7 @@ export const command : SlashCommand = {
         .addStringOption(option => option
             .setName('email')
             .setDescription('user email')),
-    execute: (interaction) => {
+    execute: async (interaction) => {
         const token = Math.random().toString().replace('0.', '');
         const id = interaction.user.id;
         const email = interaction.options.getString('email')!;
@@ -30,6 +30,8 @@ export const command : SlashCommand = {
             fetch(`${process.env.API_URL}/api/discord/provid`, {
                 method: 'POST',
                 body: JSON.stringify(body)
+            }).then(async res => {
+                console.log(await res.json());
             });
         });
         interaction.reply({ content: '이메일이 전송되 었습니다', ephemeral: true });

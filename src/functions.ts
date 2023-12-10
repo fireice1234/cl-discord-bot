@@ -10,7 +10,7 @@ export const executeFile = async (path : string, func : (file: any) => void) => 
         const filePath = join(__dirname+path, file);
 
         if (statSync(filePath).isDirectory()) {
-            await executeFile(filePath, func);
+            await executeFile(`${path}/${file}`, func);
         } else if (file.endsWith('.js') && !file.startsWith('__')) {
             const file = await require(filePath);
             func(file);

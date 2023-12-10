@@ -6,7 +6,7 @@ import { run } from './server';
 import { deploy } from './deploy-commands';
 config();
 
-const client = new Client({
+export const client = new Client({
     intents: []
 });
 

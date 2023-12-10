@@ -23,3 +23,10 @@ model Provid {
   email String
   discordId String
 }
+
+model Thread {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  adminId String
+  name String @unique
+  discordId String
+}
