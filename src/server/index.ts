@@ -65,7 +65,7 @@ app.patch('/api/rankup', async (req, res) => {
                 
                 const memberRole = await guild.roles.fetch(process.env.MEMBER_ID!);
                 await member.roles.add(memberRole!);
-                
+                console.log('member');
                 roleName = memberRole?.name;
             } else if (user.rank === 'observer') {
                 const observerRole = await guild.roles.fetch(process.env.OBSERVER_ID!);
@@ -73,10 +73,10 @@ app.patch('/api/rankup', async (req, res) => {
 
                 roleName = observerRole?.name;
             }
-            await channel.send(`${member.nickname}님이 ${roleName}역할을 부여받았습니다.`);
             if (roleName === 'cl') {
                 res.send('유저의 랭크가 조금 이상한데요..?');
             } else {
+                await channel.send(`${member.user.username}님이 ${roleName}역할을 부여받았습니다.`);
                 res.send(`유저가 디스코드에서 ${roleName} 역할을 부여받았습니다!`);
             }
         } else {

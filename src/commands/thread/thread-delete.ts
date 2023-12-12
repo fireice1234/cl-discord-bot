@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, TextChannel } from 'discord.js';
+import { GuildMemberRoleManager, SlashCommandBuilder, TextChannel } from 'discord.js';
 import { SlashCommand } from '../../types';
 import { prisma } from '../../lib/prisma';
 
@@ -11,24 +11,25 @@ export const command : SlashCommand = {
             .setDescription('thread')),
     execute: async (interaction) => {
         const thread = interaction.options.getChannel('thread');
-        await interaction.deferReply();
-        const channel = await interaction.client.channels.fetch(process.env.THREAD_ID!) as TextChannel;
         const threadData = await prisma.thread.findFirst({
             where: {
                 name: thread!.name!
             }
         });
-        if (interaction.user.id === threadData?.adminId) {
+        const role = interaction.member?.roles as GuildMemberRoleManager;
+        if (interaction.user.id === threadData?.adminId || role.cache.find(role => role.id === process.env.OBSERVER_ID)) {
+            await interaction.deferReply();
+            const channel = await interaction.client.channels.fetch(process.env.THREAD_ID!) as TextChannel;
             const threadChannel = channel.threads.cache.find(x=> x.id === thread?.id);
             await threadChannel?.delete();
             await prisma.thread.delete({
                 where: {
-                    id: threadData.id
+                    id: threadData?.id
                 }
             });
             interaction.editReply(`${thread?.name} 이가 성공적으로 삭제되었습니다.`);
         } else {
-            interaction.editReply(`${thread?.name} 이가 쓰레드가 아니거나 당신이 만든것이 아닙니다`);
+            interaction.reply({ content: `${thread?.name} 이가 쓰레드가 아니거나 당신의 소유가 아닙니다`, ephemeral: true });
         }
     }
 };

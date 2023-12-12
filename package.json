@@ -9,10 +9,8 @@
   },
   "scripts": {
     "svt": "tsx watch src/server/index.ts",
-    "dev": "tsc-watch --onSuccess \"node dist/index.js\"",
-    "deploy": "node dist/deploy-commands.js",
-    "start": "node dist/index.js",
-    "build": "tsup src/**/* --minify"
+    "start": "rmdir /s dist && tsup src/**/* --minify && node dist/index.js",
+    "fstart": "node dist/index.js"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",

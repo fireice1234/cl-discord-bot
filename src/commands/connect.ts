@@ -13,27 +13,34 @@ export const command : SlashCommand = {
         const token = Math.random().toString().replace('0.', '');
         const id = interaction.user.id;
         const email = interaction.options.getString('email')!;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const body : any = {
-            token,
-            id,
-            email
-        };
-
-        prisma.provid.create({
-            data: {
-                token: token,
-                email: email,
-                discordId: id
+        interaction.deferReply({ ephemeral: true });
+        if (await prisma.connect.findFirst({
+            where: {
+                email
             }
-        }).then(() => {
-            fetch(`${process.env.API_URL}/api/discord/provid`, {
-                method: 'POST',
-                body: JSON.stringify(body)
-            }).then(async res => {
-                console.log(await res.json());
+        })) {
+    
+            await prisma.provid.create({
+                data: {
+                    token: token,
+                    email: email,
+                    discordId: id
+                }
             });
-        });
-        interaction.reply({ content: '이메일이 전송되 었습니다', ephemeral: true });
+            
+            await fetch(`${process.env.API_URL}/api/discord/provid`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    token,
+                    id,
+                    email
+                })
+            });
+            
+            interaction.editReply({ content: '이메일이 전송되 었습니다' });
+        } else {
+            interaction.editReply({ content: '이미 연결되었습니다' });
+        }
+        
     }
 };
