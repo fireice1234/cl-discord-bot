@@ -8,9 +8,11 @@
     "tsc-watch": "^6.0.4"
   },
   "scripts": {
-    "svt": "tsx watch src/server/index.ts",
-    "start": "rmdir /s dist && tsup src/**/* --minify && node dist/index.js",
-    "fstart": "node dist/index.js"
+    "all": "npm run devrm && npm run build && npm run start",
+    "devrm": "rmdir /s /q dist",
+    "build": "tsup src/**/* --minify",
+    "start": "npx prisma generate && node dist/index.js",
+    "env": "scp .env gimd8@192.168.0.7:/mnt/ssd/cl-discord-bot"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
