@@ -1,6 +1,9 @@
 #!/bin/sh
+rm -rf node_modules
 
-git clone "https://github.com/fireing123/cl-discord-bot.git"
+rm -rf dist
+
+git pull
 
 npm run install
 

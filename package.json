@@ -12,7 +12,8 @@
     "devrm": "rmdir /s /q dist",
     "build": "tsup src/**/* --minify",
     "start": "npx prisma generate && node dist/index.js",
-    "env": "scp .env gimd8@192.168.0.7:/mnt/ssd/cl-discord-bot"
+    "env": "scp .env gimd8@192.168.0.7:/mnt/ssd/cl-discord-bot",
+    "rm": "ssh gimd8@192.168.0.7 rm -rf"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
