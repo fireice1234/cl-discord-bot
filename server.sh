@@ -5,12 +5,10 @@ rm -rf node_modules
 
 rm -rf dist
 
-git pull
-
 npm install
-
-npm install typescript
 
 npm run build
 
-npm run start
+npx prisma generate
+
+pm2 start dist/index.js
