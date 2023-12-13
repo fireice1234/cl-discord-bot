@@ -17,7 +17,7 @@
     "start": "npx prisma generate && node dist/index.js",
     "env": "scp .env gimd8@192.168.0.7:/mnt/ssd/cl-discord-bot",
     
-    "server": "ssh gimd8@192.168.0.7 \"cd /mnt/ssd/cl-discord-bot;/sh /mnt/ssd/cl-discord-bot/server.sh\""
+    "server": "ssh gimd8@192.168.0.7 \"sh /mnt/ssd/cl-discord-bot/server.sh\""
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
