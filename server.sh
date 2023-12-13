@@ -9,6 +9,8 @@ git pull
 
 npm install
 
+npm install typescript
+
 npm run build
 
 npm run start
