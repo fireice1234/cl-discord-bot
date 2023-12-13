@@ -7,7 +7,7 @@ rm -rf dist
 
 git pull
 
-npm run install
+npm install
 
 npm run build
 
