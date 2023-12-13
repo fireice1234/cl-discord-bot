@@ -8,12 +8,13 @@
     "tsc-watch": "^6.0.4"
   },
   "scripts": {
+    "deploy": "npm run env && ",
     "all": "npm run devrm && npm run build && npm run start",
     "devrm": "rmdir /s /q dist",
     "build": "tsup src/**/* --minify",
     "start": "npx prisma generate && node dist/index.js",
     "env": "scp .env gimd8@192.168.0.7:/mnt/ssd/cl-discord-bot",
-    "rm": "ssh gimd8@192.168.0.7 rm -rf"
+    "server": "ssh gimd8@192.168.0.7 sh /mnt/ssd/cl-discord-bot/server.sh"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
