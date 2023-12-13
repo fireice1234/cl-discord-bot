@@ -8,7 +8,8 @@ export const command : SlashCommand = {
         .setDescription('connect discord to vercel')
         .addStringOption(option => option
             .setName('email')
-            .setDescription('user email')),
+            .setDescription('user email')
+            .setRequired(true)),
     execute: async (interaction) => {
         const token = Math.random().toString().replace('0.', '');
         const id = interaction.user.id;

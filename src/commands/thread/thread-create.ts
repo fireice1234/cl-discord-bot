@@ -1,7 +1,7 @@
 
 import { prisma } from '../../lib/prisma';
 import { SlashCommand } from '../../types';
-import { ChannelType, GuildMemberRoleManager, SlashCommandBuilder, TextChannel } from 'discord.js';
+import { ChannelType, SlashCommandBuilder, TextChannel } from 'discord.js';
 
 
 export const command : SlashCommand = {
@@ -10,12 +10,14 @@ export const command : SlashCommand = {
         .setDescription('create private channel')
         .addStringOption(option => option
             .setName('channel')
-            .setDescription('channel name')),
+            .setDescription('channel name')
+            .setRequired(true)),
     execute: async (interaction) => {
         const name = interaction.options.getString('channel');
-        const roles = interaction.member?.roles as GuildMemberRoleManager;
-        if (roles.cache.find(r => r.id === process.env.MEMBER_ID)) {
-            await interaction.deferReply({ ephemeral: true });
+        await interaction.deferReply({ ephemeral: true });
+        const role = await interaction.guild?.roles.fetch(process.env.MEMBER_ID!);
+        if (role?.members.find(m => m.id == interaction.user.id)) {
+            
             const channel = await interaction.client.channels.fetch(process.env.THREAD_ID!) as TextChannel;
             const thread = await channel.threads.create({
                 name: name!,
@@ -31,7 +33,7 @@ export const command : SlashCommand = {
             });
             await interaction.editReply({ content: `${name} 이 생성 되었습니다` });
         } else {
-            interaction.reply({ content: '당신은 권한이 없습니다!', ephemeral: true });
+            await interaction.editReply({ content: '당신은 권한이 없습니다!' });
         }
     }
 };

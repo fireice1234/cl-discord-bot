@@ -76,7 +76,7 @@ app.patch('/api/rankup', async (req, res) => {
             if (roleName === 'cl') {
                 res.send('유저의 랭크가 조금 이상한데요..?');
             } else {
-                await channel.send(`${member.user.username}님이 ${roleName}역할을 부여받았습니다.`);
+                await channel.send(`${member.user.globalName}님이 ${roleName}역할을 부여받았습니다.`);
                 res.send(`유저가 디스코드에서 ${roleName} 역할을 부여받았습니다!`);
             }
         } else {
