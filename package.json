@@ -16,6 +16,7 @@
     "build": "npx tsc",
     "start": "npx prisma generate && node dist/index.js",
     "env": "scp .env gimd8@192.168.0.7:/mnt/ssd/cl-discord-bot",
+    "pull": "ssh gimd8@192.168.0.7 \"cd /mnt/ssd/cl-discord-bot;git pull;\" ",
     "server": "ssh gimd8@192.168.0.7 \"cd /mnt/ssd/cl-discord-bot; git pull;/sh /mnt/ssd/cl-discord-bot/server.sh\""
   },
   "devDependencies": {
