@@ -9,7 +9,6 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "start": "node dist/index.js",
-    "env": "scp .env gimd8@192.168.0.7:/mnt/ssd/cl-discord-bot",
     "build": "tsup src/**/* --minify"
   },
   "devDependencies": {
