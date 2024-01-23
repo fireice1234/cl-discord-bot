@@ -5,16 +5,19 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  install:
     runs-on: self-hosted
-
-    strategy:
-      matrix:
-        node-version: [18.x]
 
     steps:
     - uses: actions/checkout@v2
-    - run: |
-        npm ci,
-        npm run build,
-        pm2 start dist/index.js
+    - run: npm ci
+
+  build:
+    steps:
+    - uses: actions/checkout@v2
+    - run: npm run build,
+  
+  start:
+    steps:
+    - uses: actions/checkout@v2
+    - run: pm2 dist
