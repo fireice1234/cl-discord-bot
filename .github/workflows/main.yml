@@ -48,3 +48,4 @@ jobs:
       run: |
         cd /mnt/ssd/apps/cl-discord-bot
         nohup pm2 start dist/index.js </dev/null >/dev/null 2>&1 &
+        
