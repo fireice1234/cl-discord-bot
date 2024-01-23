@@ -1,23 +1,50 @@
 name: CI
 
+concurrency: 
+  group: production
+  cancel-in-progress: true
+
 on:
   push:
     branches: [ main ]
 
 jobs:
-  install:
-    runs-on: self-hosted
-
-    steps:
-    - uses: actions/checkout@v2
-    - run: npm ci
-
   build:
+    runs-on: [ self-hosted ]
+
     steps:
     - uses: actions/checkout@v2
-    - run: npm run build,
-  
-  start:
-    steps:
-    - uses: actions/checkout@v2
-    - run: pm2 dist
+      with:
+        clean: false
+    - name: Use Node.js 18.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 18.x
+
+    - name: Install dependencies
+      working-directory: service
+      run: npm install
+
+
+    - name: Stop old server (ignore error)
+      run: |
+        killall -9 node || true
+
+    - name: Remove old server in ~/soruce (ignore error)
+      run: |
+        rm -rf /mnt/ssd/apps/cl-discord-bot || true
+
+    - name: Copy new server to ~/soruce
+      run: |
+        mkdir -p /mnt/ssd/apps/cl-discord-bot
+        cp -R ./ /mnt/ssd/apps/cl-discord-bot
+        
+    - name: build
+      run: npm run build
+        
+    - name: Run new server (in background)
+      env:
+        RUNNER_TRACKING_ID: ""
+      run: |
+        cd /mnt/ssd/apps/cl-discord-bot
+        nohup pm2 start dist/index.js </dev/null >/dev/null 2>&1 &
