@@ -25,11 +25,6 @@ jobs:
           npm install
 
 
-      - name: Stop old server (ignore error)
-        run: |
-          echo old server stop...
-          npx pm2 delete discord > NULL
-
       - name: Remove old server in ~/soruce (ignore error)
         run: |
           echo remove
