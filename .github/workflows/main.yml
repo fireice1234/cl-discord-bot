@@ -39,6 +39,7 @@ jobs:
           echo copy...
           sudo mkdir -p ~/discord/cl-discord-bot
           sudo cp -R ./ ~/discord/cl-discord-bot
+          sudo cp ~/discord/.env ~/discord/cl-discord-bot
           
       
           
