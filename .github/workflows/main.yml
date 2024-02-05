@@ -24,22 +24,23 @@ jobs:
           echo install...
           npm install
 
-
-      - name: Remove old server in ~/soruce (ignore error)
-        run: |
-          echo remove
-          rm -rf ~/discord/cl-discord-bot || true
-
-      - name: Copy new server to ~/soruce
-        run: |
-          echo copy...
-          mkdir -p ~/discord/cl-discord-bot
-          cp -R ./ ~/discord/cl-discord-bot
-          
       - name: build
         run: |
           echo build
           npm run build
+
+      - name: Remove old server in ~/soruce (ignore error)
+        run: |
+          echo remove
+          sudo rm -rf ~/discord/cl-discord-bot || true
+
+      - name: Copy new server to ~/soruce
+        run: |
+          echo copy...
+          sudo mkdir -p ~/discord/cl-discord-bot
+          sudo cp -R ./ ~/discord/cl-discord-bot
+          
+      
           
       - name: Run new server (in background)
         env:
@@ -47,4 +48,4 @@ jobs:
         run: |
           echo start
           cd ~/discord/cl-discord-bot
-          npx pm2 start dist/index.js --name discord 
+          sudo npx pm2 start dist/index.js --name discord 
