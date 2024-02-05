@@ -1,59 +1,56 @@
 name: CI
 
-concurrency: 
-  group: production
-  cancel-in-progress: true
-
 on:
   push:
     branches: [ main ]
 
 jobs:
   build:
-    runs-on: [ self-hosted ]
+    name: Build
+    runs-on: self-hosted
 
     steps:
-    - uses: actions/checkout@v2
-      with:
-        clean: false
-      
-    - name: Use Node.js 18.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 18.x
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18.x
 
-    - name: Install dependencies
-      working-directory: service
-      run: |
-        echo install...
-        npm install
-
-
-    - name: Stop old server (ignore error)
-      run: |
-        echo build...
-        killall -9 node || true
-
-    - name: Remove old server in ~/soruce (ignore error)
-      run: |
-        echo remove
-        rm -rf /mnt/ssd/apps/cl-discord-bot || true
-
-    - name: Copy new server to ~/soruce
-      run: |
-        echo copy...
-        mkdir -p /mnt/ssd/apps/cl-discord-bot
-        cp -R ./ /mnt/ssd/apps/cl-discord-bot
+      - uses: actions/checkout@v2
+        with:
+          clean: false
         
-    - name: build
-      run: |
-        echo build
-        npm run build
-        
-    - name: Run new server (in background)
-      env:
-        RUNNER_TRACKING_ID: ""
-      run: |
-        echo start
-        cd /mnt/ssd/apps/cl-discord-bot
-        nohup pm2 start dist/index.js </dev/null >/dev/null 2>&1 &
+      - name: Install dependencies
+        working-directory: service
+        run: |
+          echo install...
+          npm install
+
+
+      - name: Stop old server (ignore error)
+        run: |
+          echo old server stop...
+          pm2 delete discord
+
+      - name: Remove old server in ~/soruce (ignore error)
+        run: |
+          echo remove
+          rm -rf /mnt/ssd/apps/cl-discord-bot || true
+
+      - name: Copy new server to ~/soruce
+        run: |
+          echo copy...
+          mkdir -p /mnt/ssd/apps/cl-discord-bot
+          cp -R ./ /mnt/ssd/apps/cl-discord-bot
+          
+      - name: build
+        run: |
+          echo build
+          npm run build
+          
+      - name: Run new server (in background)
+        env:
+          RUNNER_TRACKING_ID: ""
+        run: |
+          echo start
+          cd /mnt/ssd/apps/cl-discord-bot
+          pm2 start dist/index.js
