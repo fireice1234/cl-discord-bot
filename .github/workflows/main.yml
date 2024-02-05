@@ -28,7 +28,7 @@ jobs:
       - name: Stop old server (ignore error)
         run: |
           echo old server stop...
-          npx pm2 delete discord || true
+          npx pm2 delete discord > NULL
 
       - name: Remove old server in ~/soruce (ignore error)
         run: |
@@ -52,4 +52,4 @@ jobs:
         run: |
           echo start
           cd /mnt/ssd/apps/cl-discord-bot
-          npx pm2 start dist/index.js
+          npx pm2 start dist/index.js --name discord 
