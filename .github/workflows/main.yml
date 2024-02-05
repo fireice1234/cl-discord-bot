@@ -28,7 +28,7 @@ jobs:
       - name: Stop old server (ignore error)
         run: |
           echo old server stop...
-          npx pm2 delete discord
+          npx pm2 delete discord || true
 
       - name: Remove old server in ~/soruce (ignore error)
         run: |
