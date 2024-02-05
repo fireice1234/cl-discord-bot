@@ -20,7 +20,7 @@ jobs:
           clean: false
         
       - name: stop old server
-        run: sudo pm2 delete discord
+        run: sudo npx pm2 delete discord
 
 
       - name: Install dependencies
