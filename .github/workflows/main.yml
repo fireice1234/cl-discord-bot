@@ -13,7 +13,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 16.13.1
+          node-version: 18.x
 
       - uses: actions/checkout@v2
         with:
@@ -28,7 +28,7 @@ jobs:
       - name: Stop old server (ignore error)
         run: |
           echo old server stop...
-          pm2 delete discord
+          npx pm2 delete discord
 
       - name: Remove old server in ~/soruce (ignore error)
         run: |
@@ -52,4 +52,4 @@ jobs:
         run: |
           echo start
           cd /mnt/ssd/apps/cl-discord-bot
-          pm2 start dist/index.js
+          npx pm2 start dist/index.js
