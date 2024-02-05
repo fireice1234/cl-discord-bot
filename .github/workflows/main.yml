@@ -28,6 +28,7 @@ jobs:
         run: |
           echo build
           npm run build
+          sudo cp ~/discord/.env ./env
 
       - name: Remove old server in ~/soruce (ignore error)
         run: |
@@ -39,7 +40,7 @@ jobs:
           echo copy...
           sudo mkdir -p ~/discord/cl-discord-bot
           sudo cp -R ./ ~/discord/cl-discord-bot
-          sudo cp ~/discord/.env ~/discord/cl-discord-bot
+          
           
       
           
