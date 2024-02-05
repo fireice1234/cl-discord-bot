@@ -28,13 +28,13 @@ jobs:
       - name: Remove old server in ~/soruce (ignore error)
         run: |
           echo remove
-          rm -rf /mnt/ssd/apps/cl-discord-bot || true
+          rm -rf ~/discord/cl-discord-bot || true
 
       - name: Copy new server to ~/soruce
         run: |
           echo copy...
-          mkdir -p /mnt/ssd/apps/cl-discord-bot
-          cp -R ./ /mnt/ssd/apps/cl-discord-bot
+          mkdir -p ~/discord/cl-discord-bot
+          cp -R ./ ~/discord/cl-discord-bot
           
       - name: build
         run: |
@@ -46,5 +46,5 @@ jobs:
           RUNNER_TRACKING_ID: ""
         run: |
           echo start
-          cd /mnt/ssd/apps/cl-discord-bot
+          cd ~/discord/cl-discord-bot
           npx pm2 start dist/index.js --name discord 
