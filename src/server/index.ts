@@ -28,18 +28,17 @@ app.use('/api/connect', async (req, res) => {
                 discordId: discordId
             }
         });
-        
+
         await prisma.provid.delete({
             where: {
                 token: String(token)
             }
         });
-        const resp = await fetch(`${process.env.SERVER_URL}/api/rankup?email=${email}`, { method: 'PATCH' });
+        await fetch(`${process.env.SERVER_URL}/api/rankup?email=${email}`, { method: 'PATCH' });
         res.send({
             message: 'success connect discord!',
             discordId: discordId,
-            email: email,
-            fetchRes: await resp.json()
+            email: email
         });
     } else {
         res.send({
