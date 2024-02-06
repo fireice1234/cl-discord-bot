@@ -33,10 +33,12 @@ app.use('/api/connect', async (req, res) => {
                 token: String(token)
             }
         });
+        const resp = await fetch(`${process.env.SERVER_URL}/api/rankup?email=${email}`, { method: 'PATCH' });
         res.send({
             message: 'success connect discord!',
             discordId: discordId,
-            email: email
+            email: email,
+            fetchRes: await resp.json()
         });
     } else {
         res.send({
