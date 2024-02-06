@@ -46,11 +46,12 @@ app.use('/api/connect', async (req, res) => {
         });
     }
 });
+
 app.patch('/api/rankup', async (req, res) => {
     const { email } = req.query;
     const user = await fetch(`${process.env.API_URL}/api/users?email=${email}`)
         .then(async r => await r.json());
-    if (user.has) {
+    if (!('error' in user)) {
         const connect = await prisma.connect.findFirst({
             where: {
                 email: user.email

@@ -41,11 +41,8 @@ jobs:
           sudo mkdir -p ~/discord/cl-discord-bot
           sudo cp -R ./ ~/discord/cl-discord-bot
           
-          
-      
-          
       - name: Run new server (in background)
         run: |
           echo start
           cd ~/discord/cl-discord-bot
-          sudo ./server.sh
+          sudo sh server.sh
