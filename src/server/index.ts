@@ -28,6 +28,7 @@ app.use('/api/connect', async (req, res) => {
                 discordId: discordId
             }
         });
+        
         await prisma.provid.delete({
             where: {
                 token: String(token)
