@@ -2,6 +2,7 @@ import express from 'express';
 import { prisma } from '../lib/prisma';
 import { client } from '../index';
 import { TextChannel } from 'discord.js';
+import path from 'path';
 
 const app = express();
 const port = 3030;
@@ -14,6 +15,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/connect', async (req, res) => {
     const { token, userId } = req.query;
+    res.sendFile(path.join(__dirname, '/connect/loading.html'));
     const provid = await prisma.provid.findFirst({
         where: {
             token: String(token),
@@ -34,18 +36,16 @@ app.use('/api/connect', async (req, res) => {
                 token: String(token)
             }
         });
-        await fetch(`${process.env.SERVER_URL}/api/rankup?email=${email}`, { method: 'PATCH' });
-        res.send({
-            message: 'success connect discord!',
-            discordId: discordId,
-            email: email
-        });
+        const message = await fetch(`${process.env.SERVER_URL}/api/rankup?email=${email}`, { method: 'PATCH' })
+            .then(async (res) => await res.json());
+
+        if ('error' in message) {
+            res.sendFile(path.join(__dirname, '/connect/fail.html'));
+        } else {
+            res.sendFile(path.join(__dirname, '/connect/success.html'));
+        }
     } else {
-        res.send({
-            message: 'faild connect discord...',
-            token: token,
-            userId: userId
-        });
+        res.sendFile(path.join(__dirname, '/connect/fail.html'));
     }
 });
 
@@ -77,16 +77,25 @@ app.patch('/api/rankup', async (req, res) => {
                 roleName = observerRole?.name;
             }
             if (roleName === 'cl') {
-                res.send('유저의 랭크가 조금 이상한데요..?');
+                res.json({
+                    error: '유저의 랭크가 조금 이상한데요..?'
+                });
             } else {
                 await channel.send(`${member.user.username}님이 ${roleName}역할을 부여받았습니다.`);
-                res.send(`유저가 디스코드에서 ${roleName} 역할을 부여받았습니다!`);
+                res.json({
+                    message: `유저가 디스코드에서 ${roleName} 역할을 부여받았습니다!`
+                });
+
             }
         } else {
-            res.send('유저가 디스코드와 연결을 하지 않았습니다!');
+            res.json({
+                error: '유저가 디스코드와 연결을 하지 않았습니다!'
+            });
         }
     } else {
-        res.send('유저가 회원가입을 하지 않았습니다. 혹시 철자가 틀리셨는지?');
+        res.json({
+            error: '유저가 회원가입을 하지 않았습니다. 혹시 철자가 틀리셨는지?'
+        });
     }
 });
 

@@ -31,17 +31,25 @@ export const command : SlashCommand = {
                 }
             });
             
-            await fetch(`${process.env.API_URL}/api/discord/provid`, {
+            const res = await fetch(`${process.env.API_URL}/api/discord/provid`, {
                 method: 'POST',
                 body: JSON.stringify({
                     token,
                     id,
                     email
                 })
-            });
-            
-            interaction.editReply({ content: '이메일이 전송되 었습니다' });
+            }).then(async (res) => await res.json());
+
+            if ('error' in res) {
+                await prisma.provid.delete({
+                    where: {
+                        token: token
+                    }
+                });
+                interaction.editReply({ content: res.error });
+            } else {
+                interaction.editReply({ content: '이메일이 전송되 었습니다' });
+            }   
         }
-        
     }
 };
