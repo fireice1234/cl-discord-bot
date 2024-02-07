@@ -16,7 +16,6 @@ app.get('/', (req, res) => {
 
 app.use('/api/connect', async (req, res) => {
     const { token, userId } = req.query;
-    res.sendFile(path.join(dirPath, '/html/server/loading.html'));
     const provid = await prisma.provid.findFirst({
         where: {
             token: String(token),
