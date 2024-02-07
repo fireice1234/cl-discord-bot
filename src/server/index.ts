@@ -6,7 +6,7 @@ import path from 'path';
 
 const app = express();
 const port = 3030;
-const dirPath = __dirname.replace('/dist/server', '');
+const dirPath = __dirname.replace('/dist', '');
 
 app.use(express.json());
 
