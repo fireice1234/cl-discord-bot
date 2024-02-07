@@ -6,6 +6,7 @@ import path from 'path';
 
 const app = express();
 const port = 3030;
+const dirPath = __dirname.replace('/src/server', '');
 
 app.use(express.json());
 
@@ -40,12 +41,12 @@ app.use('/api/connect', async (req, res) => {
             .then(async (res) => await res.json());
 
         if ('error' in message) {
-            res.sendFile(path.join(__dirname, '/connect/fail.html'));
+            res.sendFile(path.join(dirPath, '/html/server/fail.html'));
         } else {
-            res.sendFile(path.join(__dirname, '/connect/success.html'));
+            res.sendFile(path.join(dirPath, '/html/server/success.html'));
         }
     } else {
-        res.sendFile(path.join(__dirname, '/connect/fail.html'));
+        res.sendFile(path.join(dirPath, '/html/server/fail.html'));
     }
 });
 
