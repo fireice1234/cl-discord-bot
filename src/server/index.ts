@@ -40,8 +40,10 @@ app.use('/api/connect', async (req, res) => {
             .then(async (res) => await res.json());
 
         if ('error' in message) {
+            client.users.send(discordId, message.error);
             res.sendFile(path.join(dirPath, '/html/server/fail.html'));
         } else {
+            client.users.send(discordId, message.message);
             res.sendFile(path.join(dirPath, '/html/server/success.html'));
         }
     } else {
