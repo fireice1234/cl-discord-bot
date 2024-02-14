@@ -14,7 +14,7 @@ export const command : SlashCommand = {
         const token = Math.random().toString().replace('0.', '');
         const id = interaction.user.id;
         const email = interaction.options.getString('email')!;
-        interaction.deferReply({ ephemeral: true });
+        await interaction.deferReply({ ephemeral: true });
         const user = await prisma.connect.findFirst({
             where: {
                 email
