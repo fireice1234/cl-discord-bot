@@ -66,7 +66,11 @@ app.patch('/api/rankup', async (req, res) => {
             const member = await guild.members.fetch(connect.discordId);
             const channel = await guild.channels.fetch(process.env.THREAD_ID!) as TextChannel;
             let roleName : undefined | string = 'cl';
-            if (user.rank === 'member') {
+            if (user.rank == 'person') {
+                res.json({
+                    error: "미구현 기능"
+                })
+            } else if (user.rank === 'member') {
                 
                 const memberRole = await guild.roles.fetch(process.env.MEMBER_ID!);
                 await member.roles.add(memberRole!);
@@ -77,6 +81,10 @@ app.patch('/api/rankup', async (req, res) => {
                 await member.roles.add(observerRole!);
 
                 roleName = observerRole?.name;
+            } else if (user.rank === 'admin') {
+                res.json({
+                    error: '관리자는 직접 할당해야 합니다'
+                })
             }
             if (roleName === 'cl') {
                 res.json({
