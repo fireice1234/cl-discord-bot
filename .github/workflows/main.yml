@@ -21,7 +21,7 @@ jobs:
 
       - name: Stop server (in background)
         run: |
-          echo start
+          echo stop
           sudo sh server.sh stop
   
           
