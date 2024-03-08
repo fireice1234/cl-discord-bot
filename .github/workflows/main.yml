@@ -39,6 +39,11 @@ jobs:
         with:
           clean: false
 
+      - name: Folder COPY
+        run: |
+          echo copy
+          sudo sh server.sh cp
+
       - name: Install dependencies
         run: |
           echo install...
@@ -49,11 +54,6 @@ jobs:
           echo build
           npm run build
           sudo cp ~/discord/.env ~/discord/cl-discord-bot/.env
-
-      - name: Folder COPY
-        run: |
-          echo copy
-          sudo sh server.sh cp
 
       - name: Run new server (in background)
         run: |
