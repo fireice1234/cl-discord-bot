@@ -5,6 +5,26 @@ on:
     branches: [ main ]
 
 jobs:
+  stop:
+    name: Server Stop
+    runs-on:
+      group: Default
+    steps:
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.x
+
+      - uses: actions/checkout@v2
+        with:
+          clean: false
+
+      - name: Run new server (in background)
+        run: |
+          echo start
+          cd ~/discord/cl-discord-bot
+          sudo sh server.sh stop
+    
   build:
     name: Build
     runs-on:
@@ -30,8 +50,13 @@ jobs:
           npm run build
           sudo cp ~/discord/.env ./.env
 
+      - name: Folder COPY
+        run: |
+          echo copy
+          sudo sh server.sh cp
+
       - name: Run new server (in background)
         run: |
           echo start
           cd ~/discord/cl-discord-bot
-          sudo sh server.sh
+          sudo sh server.sh start
