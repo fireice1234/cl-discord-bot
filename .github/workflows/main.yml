@@ -56,7 +56,7 @@ jobs:
           echo copy
           sudo sh server.sh cp
           cd ~/discord/cl-discord-bot
-          tree
+          sudo ls -R
 
       - name: Run new server (in background)
         run: |
