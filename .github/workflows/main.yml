@@ -22,9 +22,9 @@ jobs:
       - name: Stop server (in background)
         run: |
           echo start
-          cd ~/discord/cl-discord-bot
           sudo sh server.sh stop
-    
+  
+          
   build:
     name: Build
     runs-on:
@@ -48,15 +48,17 @@ jobs:
         run: |
           echo build
           npm run build
-          sudo cp ~/discord/.env ./.env
+          tree
+          sudo cp ~/discord/.env ~/discord/cl-discord-bot/.env
 
       - name: Folder COPY
         run: |
           echo copy
           sudo sh server.sh cp
+          cd ~/discord/cl-discord-bot
+          tree
 
       - name: Run new server (in background)
         run: |
           echo start
-          cd ~/discord/cl-discord-bot
           sudo sh server.sh start

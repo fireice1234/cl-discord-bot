@@ -38,8 +38,7 @@ const login = async (token: string | undefined) => {
     client.login(token);
 };
 
-deploy().then(() => {
-    login(process.env.TOKEN);
+login(process.env.TOKEN).then(() => {
     run();
-});
+})
 
