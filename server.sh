@@ -10,5 +10,5 @@ elif [ $1 = cp ]
 then
     sudo rm -rf ~/discord/cl-discord-bot || true
     sudo mkdir -p ~/discord/cl-discord-bot
-    sudo cp -r ./ ~/discord
+    sudo cp -r ./ ~/discord/cl-discord-bot
 fi
