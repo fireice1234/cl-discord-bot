@@ -39,15 +39,15 @@ jobs:
         with:
           clean: false
 
-      - name: Folder COPY
-        run: |
-          echo copy
-          sudo sh server.sh cp
-
       - name: Install dependencies
         run: |
           echo install...
           npm install
+
+      - name: Folder COPY
+        run: |
+          echo copy
+          sudo sh server.sh cp
 
       - name: build
         run: |
