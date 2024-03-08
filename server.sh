@@ -2,9 +2,11 @@
 
 if [ $1 = stop ]
 then
+    cd
     sudo npx pm2 delete discord
 elif [ $1 = start ]
 then 
+    cd
     sudo npx pm2 start dist/index.js --name discord 
 elif [ $1 = cp ]
 then
