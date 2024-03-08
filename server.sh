@@ -6,7 +6,7 @@ then
     sudo npx pm2 delete discord
 elif [ $1 = start ]
 then 
-    cd
+    cd ~/discord/cl-discord-bot
     sudo npx pm2 start dist/index.js --name discord 
 elif [ $1 = cp ]
 then
