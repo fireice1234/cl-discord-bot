@@ -48,7 +48,8 @@ jobs:
         run: |
           echo build
           npm run build
-          tree
+          cd ~/discord/cl-discord-bot
+          sudo ls -R
           sudo cp ~/discord/.env ~/discord/cl-discord-bot/.env
 
       - name: Folder COPY
