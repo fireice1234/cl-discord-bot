@@ -20,6 +20,7 @@ export const command : SlashCommand = {
                 email
             }
         });
+        interaction.editReply({ content: process.env.API_URL })
         if (user) {
             interaction.editReply({ content: '이미 연결되었습니다' });
         } else {
@@ -39,6 +40,8 @@ export const command : SlashCommand = {
                     email
                 })
             }).then(async (res) => await res.json());
+
+
 
             if ('error' in res) {
                 await prisma.provid.delete({
