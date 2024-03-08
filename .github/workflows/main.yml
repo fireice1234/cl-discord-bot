@@ -19,7 +19,7 @@ jobs:
         with:
           clean: false
 
-      - name: Run new server (in background)
+      - name: Stop server (in background)
         run: |
           echo start
           cd ~/discord/cl-discord-bot
