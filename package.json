@@ -9,6 +9,7 @@
   },
   "scripts": {
     "start": "node dist/index.js",
+    "deploy": "node dist/deploy-commands.js",
     "build": "tsup src/** && npx prisma generate"
   },
   "devDependencies": {

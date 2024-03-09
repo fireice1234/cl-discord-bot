@@ -42,18 +42,19 @@ jobs:
       - name: Install dependencies
         run: |
           echo install...
-          npm install
+          npm ci
   
       - name: build
         run: |
           echo build
           npm run build
 
+
       - name: Folder COPY
         run: |
           echo copy
           sudo sh server.sh cp
-          sudo cp ~/discord/.env ~/discord/cl-discord-bot/dist/
+          
 
       - name: Run new server (in background)
         run: |

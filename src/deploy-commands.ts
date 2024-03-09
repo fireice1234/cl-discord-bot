@@ -40,3 +40,5 @@ export async function deploy () {
         console.log(`Successfully reloaded ${data.length} application (/) commands.`);
     })();
 }
+
+deploy();

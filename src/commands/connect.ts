@@ -20,11 +20,10 @@ export const command : SlashCommand = {
                 email
             }
         });
-        interaction.editReply({ content: process.env.API_URL })
         if (user) {
             interaction.editReply({ content: '이미 연결되었습니다' });
         } else {
-            await prisma.provid.create({
+            const prob = await prisma.provid.create({
                 data: {
                     token: token,
                     email: email,
@@ -35,7 +34,7 @@ export const command : SlashCommand = {
             const res = await fetch(`${process.env.API_URL}/api/discord/provid`, {
                 method: 'POST',
                 body: JSON.stringify({
-                    token,
+                    token: prob.token,
                     id,
                     email
                 })
