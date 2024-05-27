@@ -29,39 +29,41 @@ export async function UpdateRole(member: GuildMember, rank: Rank) {
     const hasObserverRole = member.roles.cache.some(role => role.id == process.env.OBSERVER_ROLE_ID);
     const hasAdminRole = member.roles.cache.some(role => role.id == process.env.ADMIN_ROLE_ID);
 
+    console.log(rankHighest, hasAdminRole, hasObserverRole, hasMemverRole, hasPersonRole);
+
     if (rankHighest >= 0) {
-        if (hasPersonRole) {
+        if (!hasPersonRole) {
             await member.roles.add(personRole!);
         }
     } else {
-        if (!hasPersonRole) {
+        if (hasPersonRole) {
             await member.roles.remove(personRole!);
         }
     }
     if (rankHighest >= 1) {
-        if (hasMemverRole) {
+        if (!hasMemverRole) {
             await member.roles.add(memberRole!);
         }
     } else {
-        if (!hasMemverRole) {
+        if (hasMemverRole) {
             await member.roles.remove(memberRole!);
         }
     }
     if (rankHighest >= 2) {
-        if (hasObserverRole) {
+        if (!hasObserverRole) {
             await member.roles.add(observerRole!);
         }
     } else {
-        if (!hasObserverRole) {
+        if (hasObserverRole) {
             await member.roles.remove(observerRole!);
         }
     }
     if (rankHighest >= 3) {
-        if (hasAdminRole) {
+        if (!hasAdminRole) {
             await member.roles.add(adminRole!);
         }
     } else {
-        if (!hasAdminRole) {
+        if (hasAdminRole) {
             await member.roles.remove(adminRole!);
         }
     }

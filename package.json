@@ -10,7 +10,7 @@
   "scripts": {
     "start": "node dist/index.js",
     "deploy": "node dist/deploy-commands.js",
-    "build": "tsup src/** && npx prisma generate"
+    "build": "npx tsup src/**/* --minify && npx prisma generate"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",

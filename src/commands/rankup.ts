@@ -11,14 +11,15 @@ export const command : SlashCommand = {
             .setRequired(true)),
     execute: async (interaction) => {
         const email = interaction.options.getString('email')!;
+        await interaction.deferReply({ ephemeral: true });
         const user = await fetch(`${process.env.SERVER_URL}/api/rankup?email=${email}`, { method: 'PATCH' })
             .then(async (res) => await res.json());
         if ('error' in user) {
-            interaction.reply({
+            await interaction.editReply({
                 content: '[Error] ' + user.error
             });
         } else {
-            interaction.reply({
+            await interaction.editReply({
                 content: '[Message] ' + user.message
             });
         }
