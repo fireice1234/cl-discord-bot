@@ -26,3 +26,33 @@ declare module 'discord.js' {
         commands: Collection<string, SlashCommand>
     }
 }
+
+export type Rank = 'person' | 'member' | 'observer' | 'admin'
+
+export interface User {
+    id: string;
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+    mailcom?: string | null;
+    username: string | null;
+    rank: Rank
+}
+
+export interface Fetch {
+    type: FetchType;
+}
+
+export type FetchType =
+true |
+'session' |
+'authority' |
+'params' |
+'undefined'
+
+export interface FetchError extends Fetch {
+    error: string; 
+}
+
+export interface FetchUser extends User, Fetch {
+}

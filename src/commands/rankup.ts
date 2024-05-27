@@ -11,16 +11,16 @@ export const command : SlashCommand = {
             .setRequired(true)),
     execute: async (interaction) => {
         const email = interaction.options.getString('email')!;
-        const user = await fetch(`${process.env.SERVER_URL}/api/rankup?email=${email}`, { method: "PATCH" })
-            .then(async (res) => await res.json())
+        const user = await fetch(`${process.env.SERVER_URL}/api/rankup?email=${email}`, { method: 'PATCH' })
+            .then(async (res) => await res.json());
         if ('error' in user) {
             interaction.reply({
-                content: "[Error] " + user.error
+                content: '[Error] ' + user.error
             });
         } else {
             interaction.reply({
-                content: "[Message] " + user.message
-            })
+                content: '[Message] ' + user.message
+            });
         }
         
     }

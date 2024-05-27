@@ -17,12 +17,25 @@ export const command : SlashCommand = {
         await interaction.deferReply({ ephemeral: true });
         const user = await prisma.connect.findFirst({
             where: {
-                email
+                email: email
             }
         });
         if (user) {
             interaction.editReply({ content: '이미 연결되었습니다' });
         } else {
+
+            if (await prisma.provid.findMany({
+                where: {
+                    email: email
+                }
+            })) { // 리스트, 값이 true 인가 값없음도 true인가
+                await prisma.provid.deleteMany({
+                    where: {
+                        email: email
+                    }
+                });
+            }
+
             const prob = await prisma.provid.create({
                 data: {
                     token: token,
@@ -35,12 +48,9 @@ export const command : SlashCommand = {
                 method: 'POST',
                 body: JSON.stringify({
                     token: prob.token,
-                    id,
                     email
                 })
             }).then(async (res) => await res.json());
-
-
 
             if ('error' in res) {
                 await prisma.provid.delete({
