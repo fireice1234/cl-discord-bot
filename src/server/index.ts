@@ -65,9 +65,15 @@ app.patch('/api/rankup', async (req, res) => {
         });
         if (connect) {
             const guild = await client.guilds.fetch(process.env.GUILD_ID!);
-            const member = await guild.members.fetch(connect.discordId);
-            await UpdateRole(member, user.rank);
-
+            try {
+                const member = await guild.members.fetch(connect.discordId);
+                await UpdateRole(member, user.rank);
+            } catch (error) {
+                res.json({
+                    error: 'member undefined'
+                });
+                return;
+            }
             res.json({
                 message: 'role update',
             });
