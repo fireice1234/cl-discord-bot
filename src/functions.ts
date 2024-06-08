@@ -13,8 +13,10 @@ export function RankToNumber(rank: Rank): number {
         return 1;
     } else if (rank === 'observer') {
         return 2;
-    } else {
+    } else if (rank === 'admin') {
         return 3;
+    } else {
+        return -1;
     }
 }
 
